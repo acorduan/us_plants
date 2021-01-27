@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>US Plants</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+<div class="body-grid">
+    <div id="mapid"></div>
+    <div id="plant-content">
+        <h1>Filters:</h1>
+        <div id="filters">
+            <div class="filter-grid">
+                <label for="indexFilter" class="bold">
+                    Top plants displayed
+                    <input id="indexFilter" type="number" value="1000">
+                </label>
+            </div>
+            <div class="filter-states">
+                <label class="bold" for="stateFilter">
+                    States filter
+                    <select id="stateFilter">
+                        <option>-None-</option>
+                    </select>
+                </label>
+            </div>
+            <button onclick="onUpdateClick()" id="update">Apply filters</button>
+            <p>Nb plant(s) displayed: <span id="plantLength"></span></p>
+        </div>
+        <h1>Data:</h1>
+        <table>
+            <tr>
+                <th>Plant name</th>
+                <th id="name">-</th>
+            </tr>
+            <tr>
+                <th>Total generation</th>
+                <th id="generation">-</th>
+            </tr>
+            <tr>
+                <th>State</th>
+                <th id="state">-</th>
+            </tr>
+            <tr>
+                <th>Generation of the state</th>
+                <th id="pctStateGeneration">-</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
