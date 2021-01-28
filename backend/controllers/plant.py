@@ -22,7 +22,7 @@ class PlantController:
             statesTotalGenerationByIndex = {}
             # Open wanted csv file
             with open(data2018FilePath) as file:
-                filereader = csv.DictReader(file, delimiter=";")
+                filereader = csv.DictReader(file, delimiter=';')
                 for row in filereader:
                     # Create PlantModel from csv file
                     value = 0
@@ -44,7 +44,7 @@ class PlantController:
                         value<0
                     )
                     # Calculate total generation of a state to be able to have the pct by plant
-                    try: 
+                    try:
                         statesTotalGenerationByIndex[plant.stateId]['totalGeneration']
                     except KeyError:
                         statesTotalGenerationByIndex[plant.stateId] = { 'totalGeneration': plant.totalGeneration }
@@ -56,7 +56,7 @@ class PlantController:
             for plant in self.plants:
                 pctStateGeneration = ( plant.totalGeneration / statesTotalGenerationByIndex[plant.stateId]['totalGeneration'] ) * 100
                 plant.pctStateGeneration = format(pctStateGeneration, '.2f')
-            
+
             # Sort plants by total generation descending
             self.plants = sorted(self.plants, key=lambda plant: plant.totalGeneration, reverse=True)
         except:

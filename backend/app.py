@@ -4,18 +4,17 @@ from controllers.plant import PlantController
 from controllers.state import StateController
 
 from flask import Flask, Response, request, jsonify
-from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 plantCtrl =  PlantController()
 stateCtrl = StateController()
 
-@app.route("/plants")
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@app.route('/')
+def getRootApp():
+    return Response('Hello world', mimetype='application/json', status=200)
+
+@app.route('/plants')
 def getPlantsRequest():
     try:
         error = None
@@ -32,7 +31,7 @@ def getPlantsRequest():
                 error = {'message': 'State not found', 'code': 404}
         else:
             toReturn = plantCtrl.getPlants()
-        
+
         if request.args.get('index') != None:
             try:
                 index = int(request.args.get('index'))
@@ -45,21 +44,20 @@ def getPlantsRequest():
 
         if error == None:
             toReturn = json.dumps(toReturn, default=lambda o: o.__dict__)
-            return Response(toReturn, mimetype="application/json", status=200)
+            return Response(toReturn, mimetype='application/json', status=200)
         else:
-            return Response(error['message'], mimetype="application/json", status=error['code'])
+            return Response(error['message'], mimetype='application/json', status=error['code'])
     except:
-        return Response('Unexpected error occured', mimetype="application/json", status=500)
+        return Response('Unexpected error occured', mimetype='application/json', status=500)
 
 
-@app.route("/states")
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@app.route('/states')
 def getStatesRequest():
     try:
         toReturn = json.dumps(stateCtrl.getStates(), default=lambda o: o.__dict__)
-        return Response(toReturn, mimetype="application/json", status=200)
+        return Response(toReturn, mimetype='application/json', status=200)
     except:
-        return Response('Unexpected error occured', mimetype="application/json", status=500)
+        return Response('Unexpected error occured', mimetype='application/json', status=500)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True, port=5000)
