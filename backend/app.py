@@ -4,8 +4,12 @@ from controllers.plant import PlantController
 from controllers.state import StateController
 
 from flask import Flask, Response, request, jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 plantCtrl =  PlantController()
 stateCtrl = StateController()
